@@ -13,7 +13,7 @@ export default function DayList(props) {
   );
 
   return (
-      <>{ parsedDays }</>
+      <ul>{ parsedDays }</ul>
   );
 };
 
