@@ -59,6 +59,29 @@ function getAppointmentsForDay(state, day) {
 };
 
 
+function getInterviewersForDay(state, day) {
+  let ans = [];
+  let appts = [];
+
+  for (const item of state.days) {
+    if (item.name === day) {
+      appts = item.appointments;
+    }
+  }
+
+  for (const num of appts) {
+    try {
+      const interviewerId = state.appointments[String(num)].interview.interviewer;
+      ans.push(state.interviewers[String(interviewerId)]);
+    } catch {
+      continue;
+    }
+  }
+
+  return ans;
+};
+
+
 function getInterview(state, interview) {
   try {
     return {
@@ -75,4 +98,4 @@ function getInterview(state, interview) {
 };
 
 
-module.exports = { getAppointmentsForDay, getInterview };
+module.exports = { getAppointmentsForDay, getInterview, getInterviewersForDay };
