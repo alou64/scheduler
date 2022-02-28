@@ -15,6 +15,7 @@ export default function useVisualMode(initial) {
 
   const back = () => {
     setHistory(stack => {
+      stack.pop();
       setMode(stack.pop());
       if (stack.length === 0) stack.push(initial);
       return stack;

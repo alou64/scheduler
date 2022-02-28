@@ -61,18 +61,17 @@ function getAppointmentsForDay(state, day) {
 
 function getInterviewersForDay(state, day) {
   let ans = [];
-  let appts = [];
+  let interviewersForDay = [];
 
   for (const item of state.days) {
     if (item.name === day) {
-      appts = item.appointments;
+      interviewersForDay = item.interviewers;
     }
   }
 
-  for (const num of appts) {
+  for (const id of interviewersForDay) {
     try {
-      const interviewerId = state.appointments[String(num)].interview.interviewer;
-      ans.push(state.interviewers[String(interviewerId)]);
+      ans.push(state.interviewers[id]);
     } catch {
       continue;
     }
