@@ -1,24 +1,23 @@
-import React from 'react';
-import './styles.scss';
-import Header from './Header';
-import Empty from './Empty';
-import Show from './Show';
-import Confirm from './Confirm';
-import Status from './Status';
-import Error from './Error';
-import Form from './Form';
-import useVisualMode from '../../hooks/useVisualMode';
+import React from "react";
+import "./styles.scss";
+import Header from "./Header";
+import Empty from "./Empty";
+import Show from "./Show";
+import Confirm from "./Confirm";
+import Status from "./Status";
+import Error from "./Error";
+import Form from "./Form";
+import useVisualMode from "../../hooks/useVisualMode";
 
-const EMPTY = 'EMPTY';
-const SHOW = 'SHOW';
-const CREATE = 'CREATE';
-const SAVING = 'SAVING';
-const DELETING = 'DELETING';
-const CONFIRM = 'CONFIRM';
-const EDIT = 'EDIT';
-const ERROR_SAVE = 'ERROR_SAVE';
-const ERROR_DELETE = 'ERROR_DELETE';
-
+const EMPTY = "EMPTY";
+const SHOW = "SHOW";
+const CREATE = "CREATE";
+const SAVING = "SAVING";
+const DELETING = "DELETING";
+const CONFIRM = "CONFIRM";
+const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
@@ -28,18 +27,20 @@ export default function Appointment(props) {
   const save = (name, interviewer) => {
     const interview = {
       student: name,
-      interviewer
+      interviewer,
     };
     transition(SAVING);
     if (!name || !interviewer) return transition(ERROR_SAVE, true);
-    props.bookInterview(props.id, interview)
+    props
+      .bookInterview(props.id, interview)
       .then(() => transition(SHOW))
       .catch(() => transition(ERROR_SAVE, true));
   };
 
   const destroy = () => {
     transition(DELETING, true);
-    props.cancelInterview(props.id)
+    props
+      .cancelInterview(props.id)
       .then(() => transition(EMPTY))
       .catch(() => transition(ERROR_DELETE, true));
   };
@@ -75,28 +76,17 @@ export default function Appointment(props) {
       {mode === SAVING && <Status message={"Saving"} />}
       {mode === DELETING && <Status message={"Deleting"} />}
       {mode === CONFIRM && (
-        <Confirm
-          onConfirm={destroy}
-          onCancel={() => transition(SHOW)}
-        />
+        <Confirm onConfirm={destroy} onCancel={() => transition(SHOW)} />
       )}
       {mode === ERROR_SAVE && (
-        <Error
-          message={'Error: Could not save'}
-          onClose={back}
-        />
+        <Error message={"Error: Could not save"} onClose={back} />
       )}
       {mode === ERROR_DELETE && (
-        <Error
-          message={'Error: Could not delete'}
-          onClose={back}
-        />
+        <Error message={"Error: Could not delete"} onClose={back} />
       )}
     </article>
   );
-};
-
-
+}
 
 // interviewer={props.interview.interviewer}
 // {props.interview ? <Show student={props.interview.student} interviewer={props.interview.interviewer}/> : <Empty time={props.time} />}
