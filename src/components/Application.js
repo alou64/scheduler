@@ -37,6 +37,7 @@ export default function Application(props) {
     );
   });
 
+  // add last appointment for day (non-bookable)
   schedule.push(<Appointment key="last" time="5pm" />);
 
   return (
