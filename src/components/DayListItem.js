@@ -1,15 +1,15 @@
 import React from "react";
-// import 'components/DayListItem.scss';
 import "./DayListItem.scss";
 import classNames from "classnames";
 
+// component to display individual days
 export default function DayListItem(props) {
   let dayClass = classNames("day-list__item", {
     "day-list__item--selected": props.selected,
-    "day-list__item--full": props.spots === 0,
+    "day-list__item--full": props.spots === 0
   });
 
-  const formatSpots = (spots) => {
+  const formatSpots = spots => {
     return `${spots === 0 ? "no" : spots} spot${
       spots === 1 ? "" : "s"
     } remaining`;

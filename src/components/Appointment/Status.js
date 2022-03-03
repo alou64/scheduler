@@ -1,6 +1,7 @@
-import React from 'react';
-import './styles.scss';
+import React from "react";
+import "./styles.scss";
 
+// component to display status when action performed on appointment
 export default function Show(props) {
   return (
     <main className="appointment__card appointment__card--status">
@@ -12,4 +13,4 @@ export default function Show(props) {
       <h1 className="text--semi-bold">{props.message}</h1>
     </main>
   );
-};
+}

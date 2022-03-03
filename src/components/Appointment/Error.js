@@ -1,6 +1,7 @@
-import React from 'react';
-import './styles.scss';
+import React from "react";
+import "./styles.scss";
 
+// component to display error card
 export default function Error(props) {
   return (
     <main className="appointment__card appointment__card--error">
@@ -16,4 +17,4 @@ export default function Error(props) {
       />
     </main>
   );
-};
+}

@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState } from "react";
 
+// custom hook to keep track mode as user interacts with app
 export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
@@ -26,4 +27,4 @@ export default function useVisualMode(initial) {
   };
 
   return { mode, transition, back };
-};
+}

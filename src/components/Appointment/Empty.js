@@ -1,6 +1,7 @@
-import React from 'react';
-import './styles.scss';
+import React from "react";
+import "./styles.scss";
 
+// component to display empty appoinment card with button to add new appointment
 export default function Empty(props) {
   return (
     <main className="appointment__add">
@@ -12,4 +13,4 @@ export default function Empty(props) {
       />
     </main>
   );
-};
+}

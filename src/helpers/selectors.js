@@ -1,3 +1,5 @@
+// helper functions to be used in components
+
 function getAppointmentsForDay(state, day) {
   let ans = [];
   let appts = [];
@@ -13,8 +15,7 @@ function getAppointmentsForDay(state, day) {
   }
 
   return ans;
-};
-
+}
 
 function getInterviewersForDay(state, day) {
   let ans = [];
@@ -35,23 +36,21 @@ function getInterviewersForDay(state, day) {
   }
 
   return ans;
-};
-
+}
 
 function getInterview(state, interview) {
   try {
     return {
-      'student': interview.student,
-      'interviewer': {
-        'id': interview.interviewer,
-        'name': state.interviewers[String(interview.interviewer)].name,
-        'avatar': state.interviewers[String(interview.interviewer)].avatar
+      student: interview.student,
+      interviewer: {
+        id: interview.interviewer,
+        name: state.interviewers[String(interview.interviewer)].name,
+        avatar: state.interviewers[String(interview.interviewer)].avatar
       }
     };
   } catch {
     return null;
   }
-};
-
+}
 
 module.exports = { getAppointmentsForDay, getInterview, getInterviewersForDay };

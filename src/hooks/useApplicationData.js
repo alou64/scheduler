@@ -1,15 +1,16 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
+// custom hook to load initial API data and handle state actions
 export default function useApplicationData() {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: {},
-    interviewers: {},
+    interviewers: {}
   });
 
-  const setDay = (day) => {
+  const setDay = day => {
     setState({ ...state, day });
   };
 
@@ -28,29 +29,27 @@ export default function useApplicationData() {
     const days = updateSpots(id, "book");
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview },
+      interview: { ...interview }
     };
     const appointments = {
       ...state.appointments,
-      [id]: appointment,
+      [id]: appointment
     };
-    // setState({...state, appointments});
     return axios
       .put(`/api/appointments/${id}`, { interview })
       .then(() => setState({ ...state, appointments, days }));
   };
 
-  const cancelInterview = (id) => {
+  const cancelInterview = id => {
     const days = updateSpots(id, "cancel");
     const appointment = {
       ...state.appointments[id],
-      interview: null,
+      interview: null
     };
     const appointments = {
       ...state.appointments,
-      [id]: appointment,
+      [id]: appointment
     };
-    // setState({...state, appointments});
     return axios
       .delete(`/api/appointments/${id}`, { interview: null })
       .then(() => setState({ ...state, appointments, days }));
@@ -60,13 +59,13 @@ export default function useApplicationData() {
     Promise.all([
       axios.get("/api/days"),
       axios.get("/api/appointments"),
-      axios.get("/api/interviewers"),
+      axios.get("/api/interviewers")
     ]).then(([days, appointments, interviewers]) => {
-      setState((prev) => ({
+      setState(prev => ({
         ...prev,
         days: days.data,
         appointments: appointments.data,
-        interviewers: interviewers.data,
+        interviewers: interviewers.data
       }));
     });
   }, []);
