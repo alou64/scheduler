@@ -74,7 +74,8 @@ export default function Appointment(props) {
           interviewers={props.interviewers}
           onSave={save}
           onCancel={back}
-          placeholder={props.interview.student}
+          placeholder={"Enter Student Name"}
+          student={props.interview.student}
         />
       )}
       {mode === SAVING && <Status message={"Saving"} />}
