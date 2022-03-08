@@ -84,7 +84,10 @@ export default function Appointment(props) {
         <Confirm onConfirm={destroy} onCancel={() => transition(SHOW)} />
       )}
       {mode === ERROR_SAVE && (
-        <Error message={"Error: Could not save"} onClose={back} />
+        <Error
+          message={"Error: Could not save"}
+          onClose={() => transition(CREATE)}
+        />
       )}
       {mode === ERROR_DELETE && (
         <Error message={"Error: Could not delete"} onClose={back} />
