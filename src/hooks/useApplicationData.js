@@ -18,7 +18,7 @@ export default function useApplicationData() {
     let days = [...state.days];
     for (const day of days) {
       if (day.appointments.includes(id)) {
-        day.spots = action === "book" ? day.spots-- : day.spots++;
+        action === "book" ? (day.spots -= 1) : (day.spots += 1);
         break;
       }
     }
@@ -37,7 +37,7 @@ export default function useApplicationData() {
     };
     return axios
       .put(`/api/appointments/${id}`, { interview })
-      .then(() => setState({ ...state, appointments, days }));
+      .then(() => setState({ ...state, days, appointments }));
   };
 
   const cancelInterview = id => {
@@ -52,7 +52,7 @@ export default function useApplicationData() {
     };
     return axios
       .delete(`/api/appointments/${id}`, { interview: null })
-      .then(() => setState({ ...state, appointments, days }));
+      .then(() => setState({ ...state, days, appointments }));
   };
 
   useEffect(() => {
