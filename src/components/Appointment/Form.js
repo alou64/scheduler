@@ -44,7 +44,7 @@ export default function Form(props) {
         </form>
         <InterviewerList
           interviewers={props.interviewers}
-          value={interviewer}
+          value={interviewer.id}
           onChange={setInterviewer}
         />
         <section className="appointment__validation">{error}</section>
