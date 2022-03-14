@@ -35,7 +35,21 @@ export default function Appointment(props) {
     transition(SAVING);
     if (!name || !interviewer) return transition(ERROR_SAVE, true);
     props
-      .bookInterview(props.id, interview)
+      .bookInterview(props.id, interview, "book")
+      .then(() => transition(SHOW))
+      .catch(() => transition(ERROR_SAVE, true));
+  };
+
+  // edit interview
+  const edit = (name, interviewer) => {
+    const interview = {
+      student: name,
+      interviewer
+    };
+    transition(SAVING);
+    if (!name || !interviewer) return transition(ERROR_SAVE, true);
+    props
+      .bookInterview(props.id, interview, "edit")
       .then(() => transition(SHOW))
       .catch(() => transition(ERROR_SAVE, true));
   };
@@ -73,7 +87,7 @@ export default function Appointment(props) {
         <Form
           interviewers={props.interviewers}
           interviewer={props.interview.interviewer.id}
-          onSave={save}
+          onSave={edit}
           onCancel={back}
           placeholder={"Enter Student Name"}
           student={props.interview.student}

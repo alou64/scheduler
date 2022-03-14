@@ -33,41 +33,48 @@ export default function useApplicationData() {
     let days = [...state.days];
     for (const day of days) {
       if (day.appointments.includes(id)) {
-        action === "book" ? (day.spots -= 1) : (day.spots += 1);
+        // action === "book" ? (day.spots -= 1) : (day.spots += 1);
+        if (action === "book") {
+          day.spots -= 1;
+        } else if (action === "cancel") {
+          day.spots += 1;
+        }
         break;
       }
     }
     return days;
   };
 
-  const bookInterview = (id, interview) => {
-    const days = updateSpots(id, "book");
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-    return axios
-      .put(`/api/appointments/${id}`, { interview })
-      .then(() => setState({ ...state, days, appointments }));
+  const bookInterview = (id, interview, action) => {
+    return axios.put(`/api/appointments/${id}`, { interview }).then(() => {
+      const days = updateSpots(id, action);
+      const appointment = {
+        ...state.appointments[id],
+        interview: { ...interview }
+      };
+      const appointments = {
+        ...state.appointments,
+        [id]: appointment
+      };
+      setState({ ...state, days, appointments });
+    });
   };
 
   const cancelInterview = id => {
-    const days = updateSpots(id, "cancel");
-    const appointment = {
-      ...state.appointments[id],
-      interview: null
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
     return axios
       .delete(`/api/appointments/${id}`, { interview: null })
-      .then(() => setState({ ...state, days, appointments }));
+      .then(() => {
+        const days = updateSpots(id, "cancel");
+        const appointment = {
+          ...state.appointments[id],
+          interview: null
+        };
+        const appointments = {
+          ...state.appointments,
+          [id]: appointment
+        };
+        setState({ ...state, days, appointments });
+      });
   };
 
   return { state, setDay, bookInterview, cancelInterview };
