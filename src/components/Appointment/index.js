@@ -51,7 +51,7 @@ export default function Appointment(props) {
     props
       .bookInterview(props.id, interview, "edit")
       .then(() => transition(SHOW))
-      .catch(() => transition(ERROR_SAVE, true));
+      .catch(() => transition(ERROR_SAVE));
   };
 
   // delete interview
@@ -99,10 +99,7 @@ export default function Appointment(props) {
         <Confirm onConfirm={destroy} onCancel={() => transition(SHOW)} />
       )}
       {mode === ERROR_SAVE && (
-        <Error
-          message={"Error: Could not save"}
-          onClose={() => transition(CREATE)}
-        />
+        <Error message={"Error: Could not save"} onClose={back} />
       )}
       {mode === ERROR_DELETE && (
         <Error message={"Error: Could not delete"} onClose={back} />
