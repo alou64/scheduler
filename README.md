@@ -16,7 +16,7 @@ Interview Scheduler is a single-page application built using React, Axios, Story
 - normalize.css
 - React
 - react-dom
-- react-hooks-testing-library
+- @testing-library/react-hooks
 - react-scripts
 
 ## Setup
